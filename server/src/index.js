@@ -21,7 +21,6 @@ module.exports = {
     let io = new Server(strapi.server.httpServer, {
       cors: {
         origin: ["http://localhost:8081", 'http://192.168.0.17:8081'],
-        // origin: "*",
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true,
@@ -29,15 +28,13 @@ module.exports = {
     });
 
     io.on('connection', (socket) => {
-      console.log("Connection", socket.id);
       socket.on('geolocation', async (data) => {
         const { latitude, longitude, id } = JSON.parse(data)
-        console.log(latitude, longitude);
+
         try {
           const updatedEntry = await strapi.entityService.update('api::geolocation.geolocation', id, {
             data: { latitude, longitude },
           });
-          console.log('entry', updatedEntry);
         } catch (e) {
           console.error('Error saving geolocation data:', e);
         }
