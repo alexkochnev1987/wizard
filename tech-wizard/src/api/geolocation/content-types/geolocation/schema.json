@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "geolocations",
+  "info": {
+    "singularName": "geolocation",
+    "pluralName": "geolocations",
+    "displayName": "Geolocation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
+    },
+    "user_id": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "i18n-ally.localesPaths": [
+        "tech-wizard-front/ios/Pods/RCT-Folly/folly/lang",
+        "tech-wizard-front/ios/Pods/boost/boost/locale",
+        "tech-wizard-front/ios/Pods/boost/boost/predef/language",
+        "tech-wizard-front/ios/Pods/Headers/Private/RCT-Folly/folly/lang",
+        "tech-wizard-front/ios/Pods/Headers/Public/RCT-Folly/folly/lang"
+    ]
+}
