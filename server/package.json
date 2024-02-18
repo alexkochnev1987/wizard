@@ -9,7 +9,7 @@
     "build": "strapi build",
     "strapi": "strapi",
     "image":"docker build -t strapi .",
-    "docker":"docker run -d -p 1337:1337 -v ${PWD}:/opt/app strapi "
+    "docker":"docker run -d -p 1337:1337 -v ${PWD}:/opt/app strapi"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "4.20.1",
