@@ -30,6 +30,7 @@ module.exports = {
     io.on('connection', (socket) => {
       socket.on('geolocation', async (data) => {
         const { latitude, longitude, id } = JSON.parse(data)
+        socket.emit(`geolocation${id}`, data)
 
         try {
           const updatedEntry = await strapi.entityService.update('api::geolocation.geolocation', id, {

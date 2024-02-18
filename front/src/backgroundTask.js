@@ -1,8 +1,7 @@
 import * as TaskManager from 'expo-task-manager';
-import { io } from 'socket.io-client'
-import { GEOLOCATION_ID, SERVER_URL, TASK } from './constant';
 
-const socket = io(SERVER_URL);
+import { FIRST_USER_LOCATION_ID, SERVER_URL, TASK, socket } from './constant';
+
 
 TaskManager.defineTask(TASK, ({ data: { locations }, error }) => {
 
@@ -11,10 +10,10 @@ TaskManager.defineTask(TASK, ({ data: { locations }, error }) => {
         return;
     }
     const location = locations[0];
-
+    // console.log(location);
     socket.emit('geolocation', JSON.stringify({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        id: GEOLOCATION_ID
+        id: FIRST_USER_LOCATION_ID
     }));
 });

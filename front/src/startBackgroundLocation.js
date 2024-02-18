@@ -16,7 +16,7 @@ export async function startBackgroundLocation() {
 
     await Location.startLocationUpdatesAsync(TASK, {
         accuracy: Location.Accuracy.High,
-        timeInterval: 5000,
+        timeInterval: 10000,
         distanceInterval: 10,
         showsBackgroundLocationIndicator: true,
         pausesUpdatesAutomatically: true,

@@ -1,34 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Dimensions } from 'react-native';
-
-import { useEffect } from 'react';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { StyleSheet, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { startBackgroundLocation } from './src/startBackgroundLocation';
+import { FIRST_USER_LOCATION_ID, INITIAL_REGION, socket } from './src/constant';
 import './src/backgroundTask'
 
 
+
+
 export default function App() {
+  const [region, setRegion] = useState()
 
   useEffect(() => {
+    socket.on(`geolocation${FIRST_USER_LOCATION_ID}`, (data) => {
+      const { latitude, longitude } = JSON.parse(data)
+      setRegion({ latitude, longitude })
+    });
+
     startBackgroundLocation()
+    return () => socket.disconnect()
   }, []);
+
+
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <StatusBar style="auto" />
-      <MapView style={styles.mapStyle} provider={PROVIDER_GOOGLE} />
-    </View>
+      <MapView
+        style={StyleSheet.absoluteFill}
+        provider={PROVIDER_GOOGLE}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
+        initialRegion={{ "latitude": 37.33007701, "longitude": -122.02131427, ...INITIAL_REGION, ...region }} >
+        <Marker coordinate={region} title='user' pinColor='red' />
+      </MapView>
+    </View >
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-});
